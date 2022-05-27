@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/default_pager_dot.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/progress_bar_drawable.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/progress_drawable.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/selected_pager_dot.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/tab_indicator_default.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/tab_indicator_selected.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/tab_pager_selector.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/tab_selector.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/user_layer_1.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/user_layer_2.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/drawable/viewpager_indicator.xml" value="0.1825" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/activity_recognition.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/activity_stories.xml" value="0.176" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/exo_playback_control_view.xml" value="1.7428571428571429" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/fragment_recognition.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/item_recognition_main_image.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/item_recognition_media_image.xml" value="0.152" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/item_recognition_media_video.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/item_recognition_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/pausable_progress.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/progress_item.xml" value="0.3368532206969377" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/recognition_fragment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/stories_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hubuser/AndroidStudioProjects/UserListAnimation/app/src/main/res/layout/user_item.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

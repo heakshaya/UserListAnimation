@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#004170"
+    android:layout_height="match_parent"
+    tools:context=".presentation.useranimation.MainActivity">
+   <com.airbnb.lottie.LottieAnimationView
+       android:id="@+id/animationView"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:lottie_url="REPLACE_JSON_URL"
+       android:visibility="gone"
+       app:lottie_rawRes="@raw/fireworks_json"
+       app:lottie_autoPlay="true"
+       app:lottie_loop="true"/>
+   <androidx.viewpager2.widget.ViewPager2
+       android:id="@+id/view_pager"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:clipToPadding="false"
+       android:overScrollMode="never"
+       android:clipChildren="false"
+       android:layout_centerInParent="true"
+       android:orientation="horizontal" />
+</RelativeLayout>
