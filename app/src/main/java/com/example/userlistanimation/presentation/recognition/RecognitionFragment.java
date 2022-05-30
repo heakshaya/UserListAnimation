@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.userlistanimation.R;
 import com.example.userlistanimation.data.model.post.Data;
 import com.example.userlistanimation.presentation.Constants;
@@ -27,6 +28,7 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
     TvViewModel viewModel;
     TvViewModelFactory factory;
     RecognitionAdapter recognitionAdapter;
+    private LottieAnimationView animationView;
     private int page = 0;
     private Handler handler;
     private long delay = 0; //milliseconds
@@ -34,7 +36,7 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
         public void run() {
             page++;
             viewPager2.setCurrentItem(page, true);
-            Log.d("UserStories", "HANDLER position:" + page);
+            Log.d("Recognition", "HANDLER position:" + page);
             handler.postDelayed(this, delay);
         }
     };
@@ -44,6 +46,7 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recognition, container, false);
         viewPager2 = view.findViewById(R.id.view_pager);
+        animationView = view.findViewById(R.id.animationView);
         handler = new Handler();
         recognitionAdapter = new RecognitionAdapter(getContext());
         recognitionAdapter.setOnTimeUpdateListener(this);
@@ -61,6 +64,7 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 page = position;
+                stopAnimation();
                 Log.d("Recognition", "Inside onPageSelected position:" + position);
                 viewPager2.post(() -> {
                     recognitionAdapter.notifyItemChanged(position, true);
@@ -94,20 +98,18 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
 
         viewModel.getStoryMutableLiveData().observe(getViewLifecycleOwner(), data -> {
             if (data != null) {
-
                 for (int i = 0; i < data.size(); i++) {
                     Data data0 = data.get(i);
                     if (i == 0) {
-                        data0.setItemType(Constants.ITEM_TYPE_USER);
-                    } else if (i == 1) {
                         data0.setItemType(Constants.ITEM_TYPE_MAIN_IMAGE);
+                    } else if (i == 1) {
+                        data0.setItemType(Constants.ITEM_TYPE_USER);
                     } else if (i == 2) {
-                        data0.setItemType(Constants.ITEM_TYPE_MEDIA_IMAGE);
+                        data0.setItemType(Constants.ITEM_TYPE_USER);
                     } else if (i == 3) {
                         data0.setVideo(true);
                         data0.setItemType(Constants.ITEM_TYPE_MEDIA_VIDEO);
                         data0.setVideoUrl("https://cdn.demo-hubengage.com/demo/content/original/cebc2218-6a8f-4ea4-a62c-beba41160d65.mp4?Expires=1653638209&Signature=Z1s2IBVUE92mGa-E9Lf51VH7-CpUEmeWbVPw7fPD8bRZqUfdGOeyN16GMgYLAUHqpF0y127n6UwsPGRrOJa7tqgPhtT94~mvdvWhurpGpShFp2DEZ1XQkbusgtQXTs0iwKU48~U3~72XmmBnzJjKIDSref8dvHlPB4h7wK~OtCphaNdv15CNnYkmAfmqA2lDYArq0WrCEQCz8Pjkor6kCATXujLv1RGj-yyHbJHXmlle1l8GY8bFnAWOguczhrchkTd03Us4ONF7nvDk9STmJDtRKoFekE14O-Nw0fXsUZjW~QIMP8ndWfgrxFdP0jEzpGvDz80h~Tx5H6aOyX3-jA__&Key-Pair-Id=APKAJBMM4TGT3PFAWXWA");
-
                     } else {
                         data0.setItemType(Constants.ITEM_TYPE_MEDIA_IMAGE);
                     }
@@ -118,9 +120,23 @@ public class RecognitionFragment extends Fragment implements RecognitionAdapter.
         });
     }
 
+    void playAnimation() {
+        animationView.setVisibility(View.VISIBLE);
+        animationView.playAnimation();
+    }
+
+    void stopAnimation() {
+        animationView.setVisibility(View.GONE);
+        animationView.cancelAnimation();
+        animationView.clearAnimation();
+    }
+
     @Override
-    public void onViewPlaying(long duration) {
+    public void onViewPlaying(long duration, Data data) {
         delay = duration;
+        if (data.getItemType() == Constants.ITEM_TYPE_USER) {
+            playAnimation();
+        }
         if (handler != null) {
             handler.removeCallbacks(runnable);
             handler.postDelayed(runnable, delay);

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private LottieAnimationView animationView;
     private int page = 0;
     private Handler handler;
-    private final int delay = 8100; //milliseconds
+    private final int delay = 8200; //milliseconds
     Runnable runnable = new Runnable() {
         public void run() {
             page++;

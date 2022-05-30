@@ -1,6 +1,7 @@
 package com.example.userlistanimation.presentation.recognition;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.userlistanimation.R;
@@ -20,7 +22,10 @@ import com.example.userlistanimation.presentation.useranimation.util.CircularIma
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.RenderersFactory;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,22 +85,25 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List<Object> payloads) {
         if (!payloads.isEmpty() && (boolean) payloads.get(0)) {
             try {
-                Log.d("Recognition","holder.getItemViewType():"+holder.getItemViewType());
+                Log.d("Recognition", "holder.getItemViewType():" + holder.getItemViewType());
+
                 if (holder != null) {
                     switch (holder.getItemViewType()) {
                         case Constants.ITEM_TYPE_MAIN_IMAGE: {
                             MainImageViewHolder mainImageViewHolder = (MainImageViewHolder) holder;
-                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime());
-                            Glide.with(mainImageViewHolder.mainImageView.getContext())
+                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime(),stories.get(position));
+                            mainImageViewHolder.mainImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.main_image_recognition));
+                           /* Glide.with(mainImageViewHolder.mainImageView.getContext())
                                     .load(stories.get(position).getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                    .into(mainImageViewHolder.mainImageView);
+                                    .into(mainImageViewHolder.mainImageView);*/
                             break;
                         }
                         case Constants.ITEM_TYPE_USER: {
                             UserViewHolder userViewHolder = (UserViewHolder) holder;
-                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime());
+                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime(),stories.get(position));
                             userViewHolder.userName.setText(stories.get(position).getOwner().getFirstName() + " " + stories.get(position).getOwner().getLastName());
+
                             Glide.with(userViewHolder.userImageView.getContext())
                                     .load(stories.get(position).getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -104,7 +112,7 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                         case Constants.ITEM_TYPE_MEDIA_IMAGE: {
                             MediaImageViewHolder mediaImageViewHolder = (MediaImageViewHolder) holder;
-                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime());
+                            onTimeUpdateListener.onViewPlaying(stories.get(position).getTime(),stories.get(position));
                             Glide.with(mediaImageViewHolder.mediaImage.getContext())
                                     .load(stories.get(position).getImage())
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -113,7 +121,6 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
                         case Constants.ITEM_TYPE_MEDIA_VIDEO: {
                             MediaVideoViewHolder mediaVideoViewHolder = (MediaVideoViewHolder) holder;
-
 
                             if (exoPlayer == null) {
                                 exoPlayer = new ExoPlayer.Builder(context).build();
@@ -131,17 +138,18 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     exoPlayer.addListener(new Player.Listener() {
                                         @Override
                                         public void onPlaybackStateChanged(int playbackState) {
+
                                             Player.Listener.super.onPlaybackStateChanged(playbackState);
                                             if (playbackState == ExoPlayer.STATE_READY) {
                                                 long duration = exoPlayer.getDuration();
                                                 stories.get(position).setTime(duration);
                                                 if (onTimeUpdateListener != null) {
-                                                    onTimeUpdateListener.onViewPlaying(duration);
+                                                    onTimeUpdateListener.onViewPlaying(duration, stories.get(position));
                                                 }
-
                                             }
                                             if (playbackState == ExoPlayer.STATE_ENDED) {
                                                 if (exoPlayer != null) {
+                                                    exoPlayer.stop();
                                                     exoPlayer.release();
                                                     exoPlayer = null;
                                                 }
@@ -149,7 +157,7 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                         }
                                     });
                                 } catch (Exception e) {
-                                    Log.d("Recognition","Exoplayer error:"+e.getMessage());
+                                    Log.d("Recognition", "Exoplayer error:" + e.getMessage());
                                 }
                             }
                             break;
@@ -215,7 +223,7 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private class MediaVideoViewHolder extends RecyclerView.ViewHolder {
-        private PlayerView playerControlView;
+        private StyledPlayerView playerControlView;
 
         MediaVideoViewHolder(View v) {
             super(v);
@@ -226,6 +234,6 @@ public class RecognitionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public interface onTimeUpdateListener {
-        void onViewPlaying(long duration);
+        void onViewPlaying(long duration, Data data);
     }
 }

@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesV
                                     }
                                     if (playbackState == ExoPlayer.STATE_ENDED) {
                                         if (exoPlayer != null) {
+                                            exoPlayer.stop();
                                             exoPlayer.release();
                                             exoPlayer = null;
                                         }
@@ -123,7 +125,7 @@ public class StoriesAdapter extends RecyclerView.Adapter<StoriesAdapter.StoriesV
     }
 
     public class StoriesViewHolder extends RecyclerView.ViewHolder {
-        PlayerView playerControlView;
+        StyledPlayerView playerControlView;
         ImageView imageView;
 
         public StoriesViewHolder(@NonNull View itemView) {
